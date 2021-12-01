@@ -22,7 +22,6 @@ const App = () => {
   const [dealerHand, setDealerHand] = useState(0)
   const [deal, setDeal] = useState(0)
   const [cash, setCash] = useState(1000)
-  const [isGameOver, setIsGameOver] = useState(false)
   const [isButtonsDisabled, setIsButtonsDisabled] = useState(false)
   const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
   const buttons = ['DEAL', 'HIT', 'STAND']
@@ -45,6 +44,13 @@ const App = () => {
     return card;
   };
 
+  const handleCoinClick = ({ target: { innerText } }) => {
+    const cashValue = parseInt(innerText);
+    if (cashValue > cash) return;
+    setCash(cash - cashValue);
+    setDeal(deal + cashValue);
+  };
+
   const initGame = () => {
       // buttons must be disabled, only coins should be clickable
       setIsButtonsDisabled(true)
@@ -59,11 +65,11 @@ const App = () => {
       <h1>Player Hand: {playerHand}</h1>
       <h2>Player Cards: {playerCards}</h2>
       <div>
-        {buttons.map(button => <button disabled={isButtonsDisabled} key={button}>{button}</button>)}
+        {buttons.map(button => <button id={button.toLowerCase()} disabled={isButtonsDisabled} key={button}>{button}</button>)}
       </div>
       <br />
       <div>
-        {coins.map(coin => <button disabled={isCoinButtonsDisabled} key={coin}>{coin}</button>)}
+        {coins.map(coin => <button onClick={handleCoinClick} disabled={isCoinButtonsDisabled} key={coin}>{coin}</button>)}
       </div>
     </div>
   )
