@@ -32,6 +32,14 @@ const App = () => {
     initGame()
   }, [])
 
+  useEffect(() => {
+    console.log('deal has been changed')
+    if (deal > 0) {
+      const btn = document.querySelector('#deal')
+      btn.disabled = false
+    }
+  }, [deal])
+
   const packOfCards = () => {
     return Array(4)
       .fill([...deck])
@@ -54,6 +62,9 @@ const App = () => {
   const initGame = () => {
       // buttons must be disabled, only coins should be clickable
       setIsButtonsDisabled(true)
+      // if any coin is clicked, then the DEAL button must be able( SEE USE EFFECT)
+
+      
   }
 
   return (
