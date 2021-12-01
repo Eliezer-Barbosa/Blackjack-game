@@ -22,9 +22,9 @@ const App = () => {
   const [dealerHand, setDealerHand] = useState(0)
   const [deal, setDeal] = useState(0)
   const [cash, setCash] = useState(1000)
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
+  const [isHitButtonDisabled, setIsHitButtonDisabled] = useState(true)
+  const [isStandButtonDisabled, setIsStandButtonDisabled] = useState(true)
   const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
-  const buttons = ['DEAL', 'HIT', 'STAND']
   const coins = [1, 5, 10, 25, 50, 100, 1000];
 
   useEffect(() => {
@@ -64,9 +64,17 @@ const App = () => {
     setCash(cash + deal)
   }
 
+  const handleDealClick = () => {
+    document.querySelector('#deal').disabled = true
+    document.querySelector('#clear').disabled = true
+    setIsHitButtonDisabled(false)
+    setIsStandButtonDisabled(false)
+    setIsCoinButtonsDisabled(true)
+  }
+
   const initGame = () => {
       // buttons must be disabled, only coins should be clickable
-      setIsButtonDisabled(true)
+      
       // if any coin is clicked, then the DEAL button must be able( SEE USE EFFECT)
   }
 
@@ -79,14 +87,14 @@ const App = () => {
       <h1>Player Hand: {playerHand}</h1>
       <h2>Player Cards: {playerCards}</h2>
       <div>
-        <button disabled={isButtonDisabled} id='deal'>DEAL</button>
+        <button disabled={deal === 0} id='deal' onClick={handleDealClick}>DEAL</button>
         <button disabled={deal === 0} id='clear' onClick={handleClearDeal}>CLEAR DEAL</button>
-        <button disabled={isButtonDisabled}>HIT</button>
-        <button disabled={isButtonDisabled}>STAND</button>
+        <button disabled={isHitButtonDisabled} id='hit'>HIT</button>
+        <button disabled={isStandButtonDisabled} id='stand'>STAND</button>
       </div>
       <br />
       <div>
-        {coins.map(coin => <button onClick={handleCoinClick} disabled={isCoinButtonsDisabled} key={coin}>{coin}</button>)}
+        {coins.map(coin => <button disabled={isCoinButtonsDisabled} onClick={handleCoinClick} key={coin}>{coin}</button>)}
       </div>
     </div>
   )
