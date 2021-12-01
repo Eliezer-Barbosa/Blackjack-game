@@ -70,6 +70,21 @@ const App = () => {
     setIsHitButtonDisabled(false)
     setIsStandButtonDisabled(false)
     setIsCoinButtonsDisabled(true)
+
+    const dealerCard = getACard();
+    const playerCard_1 = getACard();
+    const playerCard_2 = getACard();
+
+    setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
+    setPlayerCards((cards) => [...cards, playerCard_1.value]);
+    setPlayerCards((cards) => [...cards, playerCard_2.value]);
+    setDealerHand(dealerHand + dealerCard.value);
+    setDealerCards((cards) => [...cards, dealerCard.value]);
+
+    if (playerHand === 21) {
+      alert(`You win with ${playerHand} points - BLACKJACK!!!`);
+      return
+    }
   }
 
   const initGame = () => {
@@ -82,10 +97,10 @@ const App = () => {
     <div>
       <h1>Cash: ${cash}</h1>
       <h1>Dealer Hand: {dealerHand}</h1>
-      <h2>Dealer Cards: {dealerCards}</h2>
+      <h2>Dealer Cards: {dealerCards.map(card => <span style={{padding: 5}}>{card}</span>)}</h2>
       <h1>Deal: {deal}</h1>
       <h1>Player Hand: {playerHand}</h1>
-      <h2>Player Cards: {playerCards}</h2>
+      <h2>Player Cards: {playerCards.map(card => <span style={{padding: 5}}>{card}</span>)}</h2>
       <div>
         <button disabled={deal === 0} id='deal' onClick={handleDealClick}>DEAL</button>
         <button disabled={deal === 0} id='clear' onClick={handleClearDeal}>CLEAR DEAL</button>
