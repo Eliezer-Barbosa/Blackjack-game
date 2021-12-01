@@ -60,10 +60,8 @@ const App = () => {
   };
 
   const handleClearDeal = () => {
-    console.log('DEAL: ', deal)
-    console.log('clear deal now')
     setDeal(0)
-    console.log('deal after clear: ', deal)
+    setCash(cash + deal)
   }
 
   const initGame = () => {
