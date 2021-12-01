@@ -22,7 +22,7 @@ const App = () => {
   const [dealerHand, setDealerHand] = useState(0)
   const [deal, setDeal] = useState(0)
   const [cash, setCash] = useState(1000)
-  const [isButtonsDisabled, setIsButtonsDisabled] = useState(false)
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
   const buttons = ['DEAL', 'HIT', 'STAND']
   const coins = [1, 5, 10, 25, 50, 100, 1000];
@@ -35,8 +35,8 @@ const App = () => {
   useEffect(() => {
     console.log('deal has been changed')
     if (deal > 0) {
-      const btn = document.querySelector('#deal')
-      btn.disabled = false
+      document.querySelector('#deal').disabled = false
+      document.querySelector('#clear').disabled = false
     }
   }, [deal])
 
@@ -59,12 +59,17 @@ const App = () => {
     setDeal(deal + cashValue);
   };
 
+  const handleClearDeal = () => {
+    console.log('DEAL: ', deal)
+    console.log('clear deal now')
+    setDeal(0)
+    console.log('deal after clear: ', deal)
+  }
+
   const initGame = () => {
       // buttons must be disabled, only coins should be clickable
-      setIsButtonsDisabled(true)
+      setIsButtonDisabled(true)
       // if any coin is clicked, then the DEAL button must be able( SEE USE EFFECT)
-
-      
   }
 
   return (
@@ -76,7 +81,10 @@ const App = () => {
       <h1>Player Hand: {playerHand}</h1>
       <h2>Player Cards: {playerCards}</h2>
       <div>
-        {buttons.map(button => <button id={button.toLowerCase()} disabled={isButtonsDisabled} key={button}>{button}</button>)}
+        <button disabled={isButtonDisabled} id='deal'>DEAL</button>
+        <button disabled={deal === 0} id='clear' onClick={handleClearDeal}>CLEAR DEAL</button>
+        <button disabled={isButtonDisabled}>HIT</button>
+        <button disabled={isButtonDisabled}>STAND</button>
       </div>
       <br />
       <div>
