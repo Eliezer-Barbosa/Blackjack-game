@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const App = () => {
   const deck = [
     { stamp: "A", value: 11 },
@@ -14,6 +16,14 @@ const App = () => {
     { stamp: "9", value: 9 },
     { stamp: "10", value: 10 },
   ];
+  const [playerCards, setPlayerCards] = useState([])
+  const [dealerCards, setDealerCards] = useState([])
+  const [playerHand, setPlayerHand] = useState(0)
+  const [dealerHand, setDealerHand] = useState(0)
+  const [deal, setDeal] = useState(0)
+  const [cash, setCash] = useState(1000)
+  const buttons = ['DEAL', 'HIT', 'STAND']
+  const coins = [1, 5, 10, 25, 50, 100, 1000];
 
   const packOfCards = () => {
     return Array(4)
@@ -27,9 +37,23 @@ const App = () => {
     return card;
   };
 
-  console.log(getACard())
-
-  return null
+  return (
+    <div>
+      <h1>Cash: ${cash}</h1>
+      <h1>Dealer Hand: {dealerHand}</h1>
+      <h2>Dealer Cards: {dealerCards}</h2>
+      <h1>Deal: {deal}</h1>
+      <h1>Player Hand: {playerHand}</h1>
+      <h2>Player Cards: {playerCards}</h2>
+      <div>
+        {buttons.map(button => <button key={button}>{button}</button>)}
+      </div>
+      <br />
+      <div>
+        {coins.map(coin => <button key={coin}>{coin}</button>)}
+      </div>
+    </div>
+  )
 };
 
 export default App;
