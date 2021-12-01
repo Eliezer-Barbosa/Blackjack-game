@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const deck = [
@@ -22,8 +22,16 @@ const App = () => {
   const [dealerHand, setDealerHand] = useState(0)
   const [deal, setDeal] = useState(0)
   const [cash, setCash] = useState(1000)
+  const [isGameOver, setIsGameOver] = useState(false)
+  const [isButtonsDisabled, setIsButtonsDisabled] = useState(false)
+  const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
   const buttons = ['DEAL', 'HIT', 'STAND']
   const coins = [1, 5, 10, 25, 50, 100, 1000];
+
+  useEffect(() => {
+    console.log('init game effect')
+    initGame()
+  }, [])
 
   const packOfCards = () => {
     return Array(4)
@@ -37,6 +45,11 @@ const App = () => {
     return card;
   };
 
+  const initGame = () => {
+      // buttons must be disabled, only coins should be clickable
+      setIsButtonsDisabled(true)
+  }
+
   return (
     <div>
       <h1>Cash: ${cash}</h1>
@@ -46,11 +59,11 @@ const App = () => {
       <h1>Player Hand: {playerHand}</h1>
       <h2>Player Cards: {playerCards}</h2>
       <div>
-        {buttons.map(button => <button key={button}>{button}</button>)}
+        {buttons.map(button => <button disabled={isButtonsDisabled} key={button}>{button}</button>)}
       </div>
       <br />
       <div>
-        {coins.map(coin => <button key={coin}>{coin}</button>)}
+        {coins.map(coin => <button disabled={isCoinButtonsDisabled} key={coin}>{coin}</button>)}
       </div>
     </div>
   )
