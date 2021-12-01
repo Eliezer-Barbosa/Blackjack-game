@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useState from "react-usestateref";
+import Swal from 'sweetalert2'
 
 const App = () => {
   const deck = [
@@ -18,7 +20,7 @@ const App = () => {
   ];
   const [playerCards, setPlayerCards] = useState([])
   const [dealerCards, setDealerCards] = useState([])
-  const [playerHand, setPlayerHand] = useState(0)
+  const [playerHand, setPlayerHand, playerHandRef] = useState(0)
   const [dealerHand, setDealerHand] = useState(0)
   const [deal, setDeal] = useState(0)
   const [cash, setCash] = useState(1000)
@@ -26,11 +28,6 @@ const App = () => {
   const [isStandButtonDisabled, setIsStandButtonDisabled] = useState(true)
   const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
   const coins = [1, 5, 10, 25, 50, 100, 1000];
-
-  useEffect(() => {
-    console.log('init game effect')
-    initGame()
-  }, [])
 
   useEffect(() => {
     console.log('deal has been changed')
@@ -75,22 +72,20 @@ const App = () => {
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
-    setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
+    setPlayerHand(playerHand + 21);
     setPlayerCards((cards) => [...cards, playerCard_1.value]);
     setPlayerCards((cards) => [...cards, playerCard_2.value]);
     setDealerHand(dealerHand + dealerCard.value);
     setDealerCards((cards) => [...cards, dealerCard.value]);
 
-    if (playerHand === 21) {
-      alert(`You win with ${playerHand} points - BLACKJACK!!!`);
+    if (playerHandRef.current === 21) {
+      Swal.fire(`You win with ${playerHandRef.current} points - BLACKJACK!!!`)
       return
     }
   }
 
-  const initGame = () => {
-      // buttons must be disabled, only coins should be clickable
-      
-      // if any coin is clicked, then the DEAL button must be able( SEE USE EFFECT)
+  const handleHitClick = () => {
+    console.log('HIT!!!')
   }
 
   return (
@@ -99,12 +94,12 @@ const App = () => {
       <h1>Dealer Hand: {dealerHand}</h1>
       <h2>Dealer Cards: {dealerCards.map(card => <span style={{padding: 5}}>{card}</span>)}</h2>
       <h1>Deal: {deal}</h1>
-      <h1>Player Hand: {playerHand}</h1>
+      <h1>Player Hand: {playerHandRef.current}</h1>
       <h2>Player Cards: {playerCards.map(card => <span style={{padding: 5}}>{card}</span>)}</h2>
       <div>
         <button disabled={deal === 0} id='deal' onClick={handleDealClick}>DEAL</button>
         <button disabled={deal === 0} id='clear' onClick={handleClearDeal}>CLEAR DEAL</button>
-        <button disabled={isHitButtonDisabled} id='hit'>HIT</button>
+        <button disabled={isHitButtonDisabled} id='hit' onClick={handleHitClick}>HIT</button>
         <button disabled={isStandButtonDisabled} id='stand'>STAND</button>
       </div>
       <br />
