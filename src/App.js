@@ -37,6 +37,13 @@ const App = () => {
     }
   }, [deal])
 
+  useEffect(() => {
+    if (playerCards.length > 0) {
+      document.querySelector('#clear').disabled = true
+      document.querySelector('#deal').disabled = true
+    }
+  }, [playerCards])
+
   const packOfCards = () => {
     return Array(4)
       .fill([...deck])
@@ -72,7 +79,8 @@ const App = () => {
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
-    setPlayerHand(playerHand + 21);
+    // setPlayerHand(playerHand + 21)
+    setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
     setPlayerCards((cards) => [...cards, playerCard_1.value]);
     setPlayerCards((cards) => [...cards, playerCard_2.value]);
     setDealerHand(dealerHand + dealerCard.value);
