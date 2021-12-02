@@ -23,7 +23,7 @@ const App = () => {
   const [playerHand, setPlayerHand, playerHandRef] = useState(0)
   const [dealerHand, setDealerHand] = useState(0)
   const [deal, setDeal] = useState(0)
-  const [cash, setCash] = useState(1000)
+  const [cash, setCash, cashRef] = useState(1000)
   const [isHitButtonDisabled, setIsHitButtonDisabled] = useState(true)
   const [isStandButtonDisabled, setIsStandButtonDisabled] = useState(true)
   const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
@@ -78,8 +78,26 @@ const App = () => {
     setDealerHand(dealerHand + dealerCard.value);
     setDealerCards((cards) => [...cards, dealerCard.value]);
 
+    // double because the dealer place the same bet as the player
+    const dealDouble = deal * 2
+    setDeal(dealDouble)
+
     if (playerHandRef.current === 21) {
-      Swal.fire(`You win with ${playerHandRef.current} points - BLACKJACK!!!`)
+      // player get the deal cash
+      setCash(cash + dealDouble)
+      console.log('cash: ', cash)
+      console.log('cashRef: ', cashRef)
+      Swal.fire(`You got ${playerHandRef.current} \\o/ BLACKJACK!!!`)
+      setTimeout(() => {
+        setDealerHand(0)
+        setDealerCards([])
+        setDeal(0)
+        setPlayerHand(0)
+        setPlayerCards([])
+        setIsHitButtonDisabled(true)
+        setIsStandButtonDisabled(true)
+        setIsCoinButtonsDisabled(false)
+      }, 3000);
       return
     }
   }
