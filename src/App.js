@@ -71,6 +71,11 @@ const App = () => {
         if (dealerHand > 21) {
           console.log('dealerhand: ', dealerHand)
           console.log('dearlerHand > 21')
+          Swal.fire(`Dealer bust with ${dealerHand} points. You win \\o/`)
+          setIsStandButtonClicked(false)
+          setCash(cash + deal)
+          clearOutput()
+          enableCoinButtons()
           return
         }
         if (dealerHand >= 17) {
@@ -212,7 +217,7 @@ const App = () => {
     setIsStandButtonClicked(true)
     const card = getACard();
     // console.log("dealer card: ", card.value);
-    card.value = 11
+    card.value = 12
     setDealerHand(dealerHand + card.value);
     setDealerCards((cards) => [...cards, card.value]);
   };
