@@ -163,33 +163,38 @@ const App = () => {
   const handleDealClick = () => {
     document.querySelector('#deal').disabled = true
     document.querySelector('#clear').disabled = true
-    setIsHitButtonDisabled(false)
-    setIsStandButtonDisabled(false)
     setIsCoinButtonsDisabled(true)
 
     const dealerCard = getACard();
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
-    // setPlayerHand(playerHand + 21)
+    playerCard_1.value = 10
+    playerCard_2.value = 11
+
     setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
     setPlayerCards((cards) => [...cards, playerCard_1.value]);
     setPlayerCards((cards) => [...cards, playerCard_2.value]);
     setDealerHand(dealerHand + dealerCard.value);
     setDealerCards((cards) => [...cards, dealerCard.value]);
+    
+    setIsHitButtonDisabled(playerHandRef.current === 21 ? true : false)
+    setIsStandButtonDisabled(playerHandRef.current === 21 ? true : false)
 
     // double because the dealer place the same bet as the player
     const dealDouble = deal * 2
     setDeal(dealDouble)
 
     if (playerHandRef.current === 21) {
-      // player get the deal cash
-      setCash(cash + dealDouble)
-      console.log('cash: ', cash)
-      console.log('cashRef: ', cashRef)
-      Swal.fire(`You got ${playerHandRef.current} \\o/ BLACKJACK!!!`)
       clearOutput()
       enableCoinButtons()
+      setTimeout(() => {
+        // player get the deal cash
+        setCash(cash + dealDouble)
+        console.log('cash: ', cash)
+        console.log('cashRef: ', cashRef)
+        Swal.fire(`You got ${playerHandRef.current} \\o/ BLACKJACK!!!`)
+      }, 1000);
       return
     }
   }
