@@ -46,6 +46,7 @@ const App = () => {
   }, [playerCards])
 
   useEffect(() => {
+    console.log('dealerHand useEffect Deal: ', deal)
     if (dealerHand < 11 && isStandButtonClicked) {
       console.log('dealerHand is < 11')
       console.log('getting another card...')
@@ -183,13 +184,10 @@ const App = () => {
         setPlayerHand(playerHand + card.value);
       }
     }
-    // double because the dealer place the same bet as the player
-    const dealDouble = deal * 2
-    setDeal(dealDouble)
     setPlayerHand(playerHand + card.value);
     setPlayerCards((cards) => [...cards, card.value]);
     if (playerHandRef.current === 21) {
-      setCash(cash + dealDouble)
+      setCash(cash + deal)
       Swal.fire(`You win with ${playerHandRef.current} points - BLACKJACK!!!`);
       clearOutput()
       enableCoinButtons()
