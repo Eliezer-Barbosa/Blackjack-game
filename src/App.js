@@ -94,6 +94,24 @@ const App = () => {
     }
   }, [dealerHand])
 
+  const clearOutput = () => {
+    setTimeout(() => {
+      setDealerHand(0)
+      setDealerCards([])
+      setDeal(0)
+      setPlayerHand(0)
+      setPlayerCards([])
+    }, 3000);
+  }
+
+  const enableCoinButtons = () => {
+    setTimeout(() => {
+      setIsHitButtonDisabled(true)
+      setIsStandButtonDisabled(true)
+      setIsCoinButtonsDisabled(false)
+    }, 3000);
+  }
+
   const packOfCards = () => {
     return Array(4)
       .fill([...deck])
@@ -146,16 +164,8 @@ const App = () => {
       console.log('cash: ', cash)
       console.log('cashRef: ', cashRef)
       Swal.fire(`You got ${playerHandRef.current} \\o/ BLACKJACK!!!`)
-      setTimeout(() => {
-        setDealerHand(0)
-        setDealerCards([])
-        setDeal(0)
-        setPlayerHand(0)
-        setPlayerCards([])
-        setIsHitButtonDisabled(true)
-        setIsStandButtonDisabled(true)
-        setIsCoinButtonsDisabled(false)
-      }, 3000);
+      clearOutput()
+      enableCoinButtons()
       return
     }
   }
@@ -181,30 +191,14 @@ const App = () => {
     if (playerHandRef.current === 21) {
       setCash(cash + dealDouble)
       Swal.fire(`You win with ${playerHandRef.current} points - BLACKJACK!!!`);
-      setTimeout(() => {
-        setDealerHand(0)
-        setDealerCards([])
-        setDeal(0)
-        setPlayerHand(0)
-        setPlayerCards([])
-        setIsHitButtonDisabled(true)
-        setIsStandButtonDisabled(true)
-        setIsCoinButtonsDisabled(false)
-      }, 3000);
+      clearOutput()
+      enableCoinButtons()
       return
     }
     if (playerHandRef.current > 21) {
       Swal.fire("You lose...");
-      setTimeout(() => {
-        setDealerHand(0)
-        setDealerCards([])
-        setDeal(0)
-        setPlayerHand(0)
-        setPlayerCards([])
-        setIsHitButtonDisabled(true)
-        setIsStandButtonDisabled(true)
-        setIsCoinButtonsDisabled(false)
-      }, 3000);
+      clearOutput()
+      enableCoinButtons()
       return
     }
   };
