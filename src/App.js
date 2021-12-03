@@ -84,16 +84,29 @@ const App = () => {
           if (dealerHand > playerHand) {
             console.log('dealerhand: ', dealerHand)
             console.log('dearlerHand is > playerHand')
+            Swal.fire(`Dealer wins with ${dealerHand} points.`)
+            setIsStandButtonClicked(false)
+            clearOutput()
+            enableCoinButtons()
             return
           }
           if (dealerHand === playerHand) {
             console.log('dealerhand: ', dealerHand)
             console.log('dearlerHand is === playerHand')
+            Swal.fire(`Draw.`)
+            setIsStandButtonClicked(false)
+            clearOutput()
+            enableCoinButtons()
             return
           }
           if (dealerHand < playerHand) {
             console.log('dealerhand: ', dealerHand)
             console.log('dearlerHand is < playerHand')
+            Swal.fire(`Dealer bust with ${dealerHand} points. You win \\o/`)
+            setIsStandButtonClicked(false)
+            setCash(cash + deal)
+            clearOutput()
+            enableCoinButtons()
             return
           }
         } else {
@@ -158,7 +171,8 @@ const App = () => {
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
-    dealerCard.value = 10
+    playerCard_1.value = 2
+    playerCard_2.value = 3
 
     // setPlayerHand(playerHand + 21)
     setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
@@ -217,7 +231,6 @@ const App = () => {
     setIsStandButtonClicked(true)
     const card = getACard();
     // console.log("dealer card: ", card.value);
-    card.value = 12
     setDealerHand(dealerHand + card.value);
     setDealerCards((cards) => [...cards, card.value]);
   };
