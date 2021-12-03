@@ -111,8 +111,53 @@ const App = () => {
   }
 
   const handleHitClick = () => {
-    console.log('HIT!!!')
-  }
+    const card = getACard();
+    // console.log("player card: ", card.stamp + " " + card.value);
+    if (card.stamp === "A") {
+      if (playerHandRef.current + card.value <= 21) {
+        console.log("ACE vale 11");
+        setPlayerHand(playerHand + card.value);
+      } else {
+        console.log("ACE vale 1");
+        card.value = 1;
+        setPlayerHand(playerHand + card.value);
+      }
+    }
+    // double because the dealer place the same bet as the player
+    const dealDouble = deal * 2
+    setDeal(dealDouble)
+    setPlayerHand(playerHand + card.value);
+    setPlayerCards((cards) => [...cards, card.value]);
+    if (playerHandRef.current === 21) {
+      setCash(cash + dealDouble)
+      Swal.fire(`You win with ${playerHandRef.current} points - BLACKJACK!!!`);
+      setTimeout(() => {
+        setDealerHand(0)
+        setDealerCards([])
+        setDeal(0)
+        setPlayerHand(0)
+        setPlayerCards([])
+        setIsHitButtonDisabled(true)
+        setIsStandButtonDisabled(true)
+        setIsCoinButtonsDisabled(false)
+      }, 3000);
+      return
+    }
+    if (playerHandRef.current > 21) {
+      Swal.fire("You lose...");
+      setTimeout(() => {
+        setDealerHand(0)
+        setDealerCards([])
+        setDeal(0)
+        setPlayerHand(0)
+        setPlayerCards([])
+        setIsHitButtonDisabled(true)
+        setIsStandButtonDisabled(true)
+        setIsCoinButtonsDisabled(false)
+      }, 3000);
+      return
+    }
+  };
 
   return (
     <div>
