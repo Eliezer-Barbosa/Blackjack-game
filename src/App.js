@@ -50,7 +50,9 @@ const App = () => {
     if (dealerHand < 11 && isStandButtonClicked) {
       console.log('dealerHand is < 11')
       console.log('getting another card...')
-      handleStandClick()
+      setTimeout(() => {
+        handleStandClick()
+      }, 2000);
       return
     }
     if (dealerHand > 11) {
@@ -147,6 +149,8 @@ const App = () => {
     const dealerCard = getACard();
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
+
+    dealerCard.value = 1
 
     // setPlayerHand(playerHand + 21)
     setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
