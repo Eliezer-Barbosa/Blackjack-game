@@ -170,10 +170,6 @@ const App = () => {
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
-    dealerCard.value = 10
-    playerCard_1.value = 10
-    playerCard_2.value = 7
-
     setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
     setPlayerCards((cards) => [...cards, playerCard_1.value]);
     setPlayerCards((cards) => [...cards, playerCard_2.value]);
@@ -226,6 +222,8 @@ const App = () => {
     if (playerHandRef.current > 21) {
       Swal.fire("You lose...");
       clearOutput()
+      setIsHitButtonDisabled(true)
+      setIsStandButtonDisabled(true)
       enableCoinButtons()
       return
     }
@@ -233,9 +231,10 @@ const App = () => {
 
   const handleStandClick = () => {
     setIsStandButtonClicked(true)
+    setIsHitButtonDisabled(true)
+    setIsStandButtonDisabled(true)
     const card = getACard();
     // console.log("dealer card: ", card.value);
-    card.value = 7
     setDealerHand(dealerHand + card.value);
     setDealerCards((cards) => [...cards, card.value]);
   };
