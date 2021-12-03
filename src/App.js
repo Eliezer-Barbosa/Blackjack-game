@@ -171,9 +171,6 @@ const App = () => {
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
-    playerCard_1.value = 2
-    playerCard_2.value = 3
-
     // setPlayerHand(playerHand + 21)
     setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
     setPlayerCards((cards) => [...cards, playerCard_1.value]);
