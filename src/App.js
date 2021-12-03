@@ -27,6 +27,7 @@ const App = () => {
   const [isHitButtonDisabled, setIsHitButtonDisabled] = useState(true)
   const [isStandButtonDisabled, setIsStandButtonDisabled] = useState(true)
   const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
+  const [isStandButtonClicked, setIsStandButtonClicked] = useState(false)
   const coins = [1, 5, 10, 25, 50, 100, 1000];
 
   useEffect(() => {
@@ -43,6 +44,55 @@ const App = () => {
       document.querySelector('#deal').disabled = true
     }
   }, [playerCards])
+
+  useEffect(() => {
+    if (dealerHand < 11 && isStandButtonClicked) {
+      console.log('dealerHand is < 11')
+      console.log('getting another card...')
+      handleStandClick()
+      return
+    }
+    if (dealerHand > 11) {
+      console.log('dealerhand: ', dealerHand)
+      console.log('dearlerHand is > 11')
+      console.log('activating setTimeout...')
+      setTimeout(() => {
+        if (dealerHand === 21) {
+          console.log('dealerhand: ', dealerHand)
+          console.log('dearlerHand is === 21')
+          return
+        }
+        if (dealerHand > 21) {
+          console.log('dealerhand: ', dealerHand)
+          console.log('dearlerHand > 21')
+          return
+        }
+        if (dealerHand >= 17) {
+          console.log('dealerhand: ', dealerHand)
+          console.log('dearlerHand is => 17')
+          if (dealerHand > playerHand) {
+            console.log('dealerhand: ', dealerHand)
+            console.log('dearlerHand is > playerHand')
+            return
+          }
+          if (dealerHand === playerHand) {
+            console.log('dealerhand: ', dealerHand)
+            console.log('dearlerHand is === playerHand')
+            return
+          }
+          if (dealerHand < playerHand) {
+            console.log('dealerhand: ', dealerHand)
+            console.log('dearlerHand is < playerHand')
+            return
+          }
+        } else {
+          console.log('dealerhand: ', dealerHand)
+          console.log('dearlerHand is < 17')
+          handleStandClick()
+        }
+      }, 2000);
+    }
+  }, [dealerHand])
 
   const packOfCards = () => {
     return Array(4)
@@ -159,6 +209,14 @@ const App = () => {
     }
   };
 
+  const handleStandClick = () => {
+    setIsStandButtonClicked(true)
+    const card = getACard();
+    // console.log("dealer card: ", card.value);
+    setDealerHand(dealerHand + card.value);
+    setDealerCards((cards) => [...cards, card.value]);
+  };
+
   return (
     <div>
       <h1>Cash: ${cash}</h1>
@@ -171,7 +229,7 @@ const App = () => {
         <button disabled={deal === 0} id='deal' onClick={handleDealClick}>DEAL</button>
         <button disabled={deal === 0} id='clear' onClick={handleClearDeal}>CLEAR DEAL</button>
         <button disabled={isHitButtonDisabled} id='hit' onClick={handleHitClick}>HIT</button>
-        <button disabled={isStandButtonDisabled} id='stand'>STAND</button>
+        <button disabled={isStandButtonDisabled} id='stand' onClick={handleStandClick}>STAND</button>
       </div>
       <br />
       <div>
