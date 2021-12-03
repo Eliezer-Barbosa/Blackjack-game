@@ -47,12 +47,12 @@ const App = () => {
 
   useEffect(() => {
     console.log('dealerHand useEffect Deal: ', deal)
-    if (dealerHand < 11 && isStandButtonClicked) {
+    if (dealerHand <= 11 && isStandButtonClicked) {
       console.log('dealerHand is < 11')
       console.log('getting another card...')
       setTimeout(() => {
         handleStandClick()
-      }, 2000);
+      }, 1000);
       return
     }
     if (dealerHand > 11) {
@@ -94,6 +94,7 @@ const App = () => {
             console.log('dealerhand: ', dealerHand)
             console.log('dearlerHand is === playerHand')
             Swal.fire(`Draw.`)
+            setCash(cash + (deal / 2))
             setIsStandButtonClicked(false)
             clearOutput()
             enableCoinButtons()
@@ -114,7 +115,7 @@ const App = () => {
           console.log('dearlerHand is < 17')
           handleStandClick()
         }
-      }, 2000);
+      }, 1000);
     }
   }, [dealerHand])
 
@@ -125,7 +126,7 @@ const App = () => {
       setDeal(0)
       setPlayerHand(0)
       setPlayerCards([])
-    }, 3000);
+    }, 2000);
   }
 
   const enableCoinButtons = () => {
@@ -133,7 +134,7 @@ const App = () => {
       setIsHitButtonDisabled(true)
       setIsStandButtonDisabled(true)
       setIsCoinButtonsDisabled(false)
-    }, 3000);
+    }, 2000);
   }
 
   const packOfCards = () => {
@@ -169,8 +170,9 @@ const App = () => {
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
+    dealerCard.value = 10
     playerCard_1.value = 10
-    playerCard_2.value = 11
+    playerCard_2.value = 7
 
     setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
     setPlayerCards((cards) => [...cards, playerCard_1.value]);
@@ -233,6 +235,7 @@ const App = () => {
     setIsStandButtonClicked(true)
     const card = getACard();
     // console.log("dealer card: ", card.value);
+    card.value = 7
     setDealerHand(dealerHand + card.value);
     setDealerCards((cards) => [...cards, card.value]);
   };
