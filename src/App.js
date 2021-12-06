@@ -18,17 +18,22 @@ const App = () => {
     { stamp: "9", value: 9 },
     { stamp: "10", value: 10 },
   ];
+  const myStorage = window.localStorage
   const [playerCards, setPlayerCards] = useState([])
   const [dealerCards, setDealerCards] = useState([])
   const [playerHand, setPlayerHand, playerHandRef] = useState(0)
   const [dealerHand, setDealerHand] = useState(0)
   const [deal, setDeal] = useState(0)
-  const [cash, setCash, cashRef] = useState(1000)
+  const [cash, setCash, cashRef] = useState(parseInt(myStorage.getItem('cash')))
   const [isHitButtonDisabled, setIsHitButtonDisabled] = useState(true)
   const [isStandButtonDisabled, setIsStandButtonDisabled] = useState(true)
   const [isCoinButtonsDisabled, setIsCoinButtonsDisabled] = useState(false)
   const [isStandButtonClicked, setIsStandButtonClicked] = useState(false)
   const coins = [1, 5, 10, 25, 50, 100, 1000];
+
+  useEffect(() => {
+    myStorage.setItem('cash', JSON.stringify(cash))
+  }, [cash])
 
   useEffect(() => {
     console.log('deal has been changed')
@@ -73,7 +78,7 @@ const App = () => {
           console.log('dearlerHand > 21')
           Swal.fire(`Dealer bust with ${dealerHand} points. You win \\o/`)
           setIsStandButtonClicked(false)
-          setCash(cash + deal)
+          setCash(parseInt(myStorage.getItem('cash')) + deal)
           clearOutput()
           enableCoinButtons()
           return
@@ -94,7 +99,7 @@ const App = () => {
             console.log('dealerhand: ', dealerHand)
             console.log('dearlerHand is === playerHand')
             Swal.fire(`Draw.`)
-            setCash(cash + (deal / 2))
+            setCash(parseInt(myStorage.getItem('cash')) + (deal / 2))
             setIsStandButtonClicked(false)
             clearOutput()
             enableCoinButtons()
@@ -105,7 +110,7 @@ const App = () => {
             console.log('dearlerHand is < playerHand')
             Swal.fire(`Dealer bust with ${dealerHand} points. You win \\o/`)
             setIsStandButtonClicked(false)
-            setCash(cash + deal)
+            setCash(parseInt(myStorage.getItem('cash')) + deal)
             clearOutput()
             enableCoinButtons()
             return
@@ -152,13 +157,13 @@ const App = () => {
   const handleCoinClick = ({ target: { innerText } }) => {
     const cashValue = parseInt(innerText);
     if (cashValue > cash) return;
-    setCash(cash - cashValue);
+    setCash(parseInt(myStorage.getItem('cash')) - cashValue);
     setDeal(deal + cashValue);
   };
 
   const handleClearDeal = () => {
     setDeal(0)
-    setCash(cash + deal)
+    setCash(parseInt(myStorage.getItem('cash')) + deal)
   }
 
   const handleDealClick = () => {
@@ -188,7 +193,7 @@ const App = () => {
       enableCoinButtons()
       setTimeout(() => {
         // player get the deal cash
-        setCash(cash + dealDouble)
+        setCash(parseInt(myStorage.getItem('cash')) + dealDouble)
         console.log('cash: ', cash)
         console.log('cashRef: ', cashRef)
         Swal.fire(`You got ${playerHandRef.current} \\o/ BLACKJACK!!!`)
@@ -213,7 +218,7 @@ const App = () => {
     setPlayerHand(playerHand + card.value);
     setPlayerCards((cards) => [...cards, card.value]);
     if (playerHandRef.current === 21) {
-      setCash(cash + deal)
+      setCash(parseInt(myStorage.getItem('cash')) + deal)
       Swal.fire(`You win with ${playerHandRef.current} points - BLACKJACK!!!`);
       clearOutput()
       enableCoinButtons()
