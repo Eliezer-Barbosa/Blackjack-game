@@ -68,19 +68,12 @@ const App = () => {
         if (dealerHand === 21) {
           console.log('dealerhand: ', dealerHand)
           console.log('dearlerHand is === 21')
-          Swal.fire(`Dealer wins with ${dealerHand} points.`)
-          setIsStandButtonClicked(false)
-          clearOutput()
-          enableCoinButtons()
+          dealerWinsMessage()
         }
         if (dealerHand > 21) {
           console.log('dealerhand: ', dealerHand)
           console.log('dearlerHand > 21')
-          Swal.fire(`Dealer bust with ${dealerHand} points. You win \\o/`)
-          setIsStandButtonClicked(false)
-          setCash(parseInt(myStorage.getItem('cash')) + deal)
-          clearOutput()
-          enableCoinButtons()
+          dealerBustMessage()
           return
         }
         if (dealerHand >= 17) {
@@ -89,10 +82,7 @@ const App = () => {
           if (dealerHand > playerHand) {
             console.log('dealerhand: ', dealerHand)
             console.log('dearlerHand is > playerHand')
-            Swal.fire(`Dealer wins with ${dealerHand} points.`)
-            setIsStandButtonClicked(false)
-            clearOutput()
-            enableCoinButtons()
+            dealerWinsMessage()
             return
           }
           if (dealerHand === playerHand) {
@@ -108,11 +98,7 @@ const App = () => {
           if (dealerHand < playerHand) {
             console.log('dealerhand: ', dealerHand)
             console.log('dearlerHand is < playerHand')
-            Swal.fire(`Dealer bust with ${dealerHand} points. You win \\o/`)
-            setIsStandButtonClicked(false)
-            setCash(parseInt(myStorage.getItem('cash')) + deal)
-            clearOutput()
-            enableCoinButtons()
+            dealerBustMessage()
             return
           }
         } else {
@@ -123,6 +109,21 @@ const App = () => {
       }, 1000);
     }
   }, [dealerHand])
+
+  const dealerWinsMessage = () => {
+    Swal.fire(`Dealer wins with ${dealerHand} points.`)
+    setIsStandButtonClicked(false)
+    clearOutput()
+    enableCoinButtons()
+  }
+
+  const dealerBustMessage = () => {
+    Swal.fire(`Dealer bust with ${dealerHand} points. You win \\o/`)
+    setIsStandButtonClicked(false)
+    setCash(parseInt(myStorage.getItem('cash')) + deal)
+    clearOutput()
+    enableCoinButtons()
+  }
 
   const clearOutput = () => {
     setTimeout(() => {
