@@ -2,7 +2,78 @@ import { useEffect } from "react";
 import useState from "react-usestateref";
 import Swal from 'sweetalert2'
 
+import clubsOf2 from './PNG-cards-1.3/2_of_clubs.png'
+import diamondsOf2 from './PNG-cards-1.3/2_of_diamonds.png'
+import heartsOf2 from './PNG-cards-1.3/2_of_hearts.png'
+import spadesOf2 from './PNG-cards-1.3/2_of_spades.png'
+import clubsOf3 from './PNG-cards-1.3/3_of_clubs.png'
+import diamondsOf3 from './PNG-cards-1.3/3_of_diamonds.png'
+import heartsOf3 from './PNG-cards-1.3/3_of_hearts.png'
+import spadesOf3 from './PNG-cards-1.3/3_of_spades.png'
+import clubsOf4 from './PNG-cards-1.3/4_of_clubs.png'
+import diamondsOf4 from './PNG-cards-1.3/4_of_diamonds.png'
+import heartsOf4 from './PNG-cards-1.3/4_of_hearts.png'
+import spadesOf4 from './PNG-cards-1.3/4_of_spades.png'
+import clubsOf5 from './PNG-cards-1.3/5_of_clubs.png'
+import diamondsOf5 from './PNG-cards-1.3/5_of_diamonds.png'
+import heartsOf5 from './PNG-cards-1.3/5_of_hearts.png'
+import spadesOf5 from './PNG-cards-1.3/5_of_spades.png'
+import clubsOf6 from './PNG-cards-1.3/6_of_clubs.png'
+import diamondsOf6 from './PNG-cards-1.3/6_of_diamonds.png'
+import heartsOf6 from './PNG-cards-1.3/6_of_hearts.png'
+import spadesOf6 from './PNG-cards-1.3/6_of_spades.png'
+import clubsOf7 from './PNG-cards-1.3/7_of_clubs.png'
+import diamondsOf7 from './PNG-cards-1.3/7_of_diamonds.png'
+import heartsOf7 from './PNG-cards-1.3/7_of_hearts.png'
+import spadesOf7 from './PNG-cards-1.3/7_of_spades.png'
+import clubsOf8 from './PNG-cards-1.3/8_of_clubs.png'
+import diamondsOf8 from './PNG-cards-1.3/8_of_diamonds.png'
+import heartsOf8 from './PNG-cards-1.3/8_of_hearts.png'
+import spadesOf8 from './PNG-cards-1.3/8_of_spades.png'
+import clubsOf9 from './PNG-cards-1.3/9_of_clubs.png'
+import diamondsOf9 from './PNG-cards-1.3/9_of_diamonds.png'
+import heartsOf9 from './PNG-cards-1.3/9_of_hearts.png'
+import spadesOf9 from './PNG-cards-1.3/9_of_spades.png'
+import clubsOf10 from './PNG-cards-1.3/10_of_clubs.png'
+import diamondsOf10 from './PNG-cards-1.3/10_of_diamonds.png'
+import heartsOf10 from './PNG-cards-1.3/10_of_hearts.png'
+import spadesOf10 from './PNG-cards-1.3/10_of_spades.png'
+import clubsOfAce from './PNG-cards-1.3/ace_of_clubs.png'
+import diamondsOfAce from './PNG-cards-1.3/ace_of_diamonds.png'
+import heartsOfAce from './PNG-cards-1.3/ace_of_hearts.png'
+import spadesOfAce from './PNG-cards-1.3/ace_of_spades2.png'
+import clubsOfJack from './PNG-cards-1.3/jack_of_clubs.png'
+import diamondsOfJack from './PNG-cards-1.3/jack_of_diamonds.png'
+import heartsOfJack from './PNG-cards-1.3/jack_of_hearts.png'
+import spadesOfJack from './PNG-cards-1.3/jack_of_spades.png'
+import clubsOfKing from './PNG-cards-1.3/king_of_clubs.png'
+import diamondsOfKing from './PNG-cards-1.3/king_of_diamonds.png'
+import heartsOfKing from './PNG-cards-1.3/king_of_hearts.png'
+import spadesOfKing from './PNG-cards-1.3/king_of_spades.png'
+import clubsOfQueen from './PNG-cards-1.3/queen_of_clubs.png'
+import diamondsOfQueen from './PNG-cards-1.3/queen_of_diamonds.png'
+import heartsOfQueen from './PNG-cards-1.3/queen_of_hearts.png'
+import spadesOfQueen from './PNG-cards-1.3/queen_of_spades.png'
+
 const App = () => {
+  const spadesSuit = [
+    { suit: "A", cardImage: spadesOfAce,  value: 11 },
+    { suit: "J", cardImage: spadesOfJack,  value: 10 },
+    { suit: "Q", cardImage: spadesOfQueen,  value: 10 },
+    { suit: "K", cardImage: spadesOfKing,  value: 10 },
+    { suit: "2", cardImage: spadesOf2,  value: 2 },
+    { suit: "3", cardImage: spadesOf3,  value: 3 },
+    { suit: "4", cardImage: spadesOf4,  value: 4 },
+    { suit: "5", cardImage: spadesOf5,  value: 5 },
+    { suit: "6", cardImage: spadesOf6,  value: 6 },
+    { suit: "7", cardImage: spadesOf7,  value: 7 },
+    { suit: "8", cardImage: spadesOf8,  value: 8 },
+    { suit: "9", cardImage: spadesOf9,  value: 9 },
+    { suit: "10", cardImage: spadesOf10,  value: 10 },
+  ]
+  const heartsSuit = []
+  const diamondsSuit = []
+  const clubsSuit = []
   const deck = [
     { stamp: "A", value: 11 },
     { stamp: "J", value: 10 },
@@ -19,7 +90,7 @@ const App = () => {
     { stamp: "10", value: 10 },
   ];
   const myStorage = window.localStorage
-  const [playerCards, setPlayerCards] = useState([])
+  const [playerCards, setPlayerCards, playerCardsRef] = useState([])
   const [dealerCards, setDealerCards] = useState([])
   const [playerHand, setPlayerHand, playerHandRef] = useState(0)
   const [dealerHand, setDealerHand] = useState(0)
@@ -145,7 +216,7 @@ const App = () => {
 
   const packOfCards = () => {
     return Array(4)
-      .fill([...deck])
+      .fill([...spadesSuit])
       .reduce((a, b) => a.concat(b));
   };
 
@@ -176,11 +247,19 @@ const App = () => {
     const playerCard_1 = getACard();
     const playerCard_2 = getACard();
 
+    console.log(playerCard_1)
+    console.log(playerCard_1.suit)
+    console.log(playerCard_1.cardImage)
+    console.log(playerCard_1.value)
+
     setPlayerHand(playerHand + playerCard_1.value + playerCard_2.value);
-    setPlayerCards((cards) => [...cards, playerCard_1.value]);
-    setPlayerCards((cards) => [...cards, playerCard_2.value]);
+    setPlayerCards((cards) => [...cards, playerCard_1.cardImage]);
+    setPlayerCards((cards) => [...cards, playerCard_2.cardImage]);
     setDealerHand(dealerHand + dealerCard.value);
-    setDealerCards((cards) => [...cards, dealerCard.value]);
+    setDealerCards((cards) => [...cards, dealerCard.cardImage]);
+
+    console.log('playerCards: ', playerCardsRef)
+    console.log('playerHand: ', playerHand)
     
     setIsHitButtonDisabled(playerHandRef.current === 21 ? true : false)
     setIsStandButtonDisabled(playerHandRef.current === 21 ? true : false)
@@ -247,13 +326,12 @@ const App = () => {
 
   return (
     <div>
-      <img style={{padding: 10}} width='100' height='150' src='images/PNG-cards-1.3/jack_of_clubs.png' alt='ppp' />
       <h1>Cash: ${cash}</h1>
       <h1>Dealer Hand: {dealerHand}</h1>
-      <h2>Dealer Cards: {dealerCards.map(card => <span style={{padding: 5}}>{card}</span>)}</h2>
+      <h2>Dealer Cards: {dealerCards.map(card => <img style={{padding: 10}} width='100' height='150' src={card} alt='ppp' />)}</h2>
       <h1>Deal: {deal}</h1>
       <h1>Player Hand: {playerHandRef.current}</h1>
-      <h2>Player Cards: {playerCards.map(card => <span style={{padding: 5}}>{card}</span>)}</h2>
+      <div>Player Cards: {playerCards.map(card => <img style={{padding: 10}} width='100' height='150' src={card} alt='ppp' />)}</div>
       <div>
         <button disabled={deal === 0} id='deal' onClick={handleDealClick}>DEAL</button>
         <button disabled={deal === 0} id='clear' onClick={handleClearDeal}>CLEAR DEAL</button>
