@@ -247,6 +247,7 @@ const App = () => {
 
   return (
     <div>
+      <img style={{padding: 10}} width='100' height='150' src='images/PNG-cards-1.3/jack_of_clubs.png' alt='ppp' />
       <h1>Cash: ${cash}</h1>
       <h1>Dealer Hand: {dealerHand}</h1>
       <h2>Dealer Cards: {dealerCards.map(card => <span style={{padding: 5}}>{card}</span>)}</h2>
