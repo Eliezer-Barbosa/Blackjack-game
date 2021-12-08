@@ -71,24 +71,52 @@ const App = () => {
     { suit: "9", cardImage: spadesOf9,  value: 9 },
     { suit: "10", cardImage: spadesOf10,  value: 10 },
   ]
-  const heartsSuit = []
-  const diamondsSuit = []
-  const clubsSuit = []
-  const deck = [
-    { stamp: "A", value: 11 },
-    { stamp: "J", value: 10 },
-    { stamp: "Q", value: 10 },
-    { stamp: "K", value: 10 },
-    { stamp: "2", value: 2 },
-    { stamp: "3", value: 3 },
-    { stamp: "4", value: 4 },
-    { stamp: "5", value: 5 },
-    { stamp: "6", value: 6 },
-    { stamp: "7", value: 7 },
-    { stamp: "8", value: 8 },
-    { stamp: "9", value: 9 },
-    { stamp: "10", value: 10 },
-  ];
+  const heartsSuit = [
+    { suit: "A", cardImage: heartsOfAce,  value: 11 },
+    { suit: "J", cardImage: heartsOfJack,  value: 10 },
+    { suit: "Q", cardImage: heartsOfQueen,  value: 10 },
+    { suit: "K", cardImage: heartsOfKing,  value: 10 },
+    { suit: "2", cardImage: heartsOf2,  value: 2 },
+    { suit: "3", cardImage: heartsOf3,  value: 3 },
+    { suit: "4", cardImage: heartsOf4,  value: 4 },
+    { suit: "5", cardImage: heartsOf5,  value: 5 },
+    { suit: "6", cardImage: heartsOf6,  value: 6 },
+    { suit: "7", cardImage: heartsOf7,  value: 7 },
+    { suit: "8", cardImage: heartsOf8,  value: 8 },
+    { suit: "9", cardImage: heartsOf9,  value: 9 },
+    { suit: "10", cardImage: heartsOf10,  value: 10 },
+  ]
+  const diamondsSuit = [
+    { suit: "A", cardImage: diamondsOfAce,  value: 11 },
+    { suit: "J", cardImage: diamondsOfJack,  value: 10 },
+    { suit: "Q", cardImage: diamondsOfQueen,  value: 10 },
+    { suit: "K", cardImage: diamondsOfKing,  value: 10 },
+    { suit: "2", cardImage: diamondsOf2,  value: 2 },
+    { suit: "3", cardImage: diamondsOf3,  value: 3 },
+    { suit: "4", cardImage: diamondsOf4,  value: 4 },
+    { suit: "5", cardImage: diamondsOf5,  value: 5 },
+    { suit: "6", cardImage: diamondsOf6,  value: 6 },
+    { suit: "7", cardImage: diamondsOf7,  value: 7 },
+    { suit: "8", cardImage: diamondsOf8,  value: 8 },
+    { suit: "9", cardImage: diamondsOf9,  value: 9 },
+    { suit: "10", cardImage: diamondsOf10,  value: 10 },
+  ]
+  const clubsSuit = [
+    { suit: "A", cardImage: clubsOfAce,  value: 11 },
+    { suit: "J", cardImage: clubsOfJack,  value: 10 },
+    { suit: "Q", cardImage: clubsOfQueen,  value: 10 },
+    { suit: "K", cardImage: clubsOfKing,  value: 10 },
+    { suit: "2", cardImage: clubsOf2,  value: 2 },
+    { suit: "3", cardImage: clubsOf3,  value: 3 },
+    { suit: "4", cardImage: clubsOf4,  value: 4 },
+    { suit: "5", cardImage: clubsOf5,  value: 5 },
+    { suit: "6", cardImage: clubsOf6,  value: 6 },
+    { suit: "7", cardImage: clubsOf7,  value: 7 },
+    { suit: "8", cardImage: clubsOf8,  value: 8 },
+    { suit: "9", cardImage: clubsOf9,  value: 9 },
+    { suit: "10", cardImage: clubsOf10,  value: 10 },
+  ]
+  
   const myStorage = window.localStorage
   const [playerCards, setPlayerCards, playerCardsRef] = useState([])
   const [dealerCards, setDealerCards] = useState([])
@@ -215,10 +243,12 @@ const App = () => {
   }
 
   const packOfCards = () => {
-    return Array(4)
-      .fill([...spadesSuit])
+    return Array(1)
+      .fill([...spadesSuit, ...heartsSuit, ...diamondsSuit, ...clubsSuit])
       .reduce((a, b) => a.concat(b));
   };
+
+  console.log('pack: ', packOfCards())
 
   const getACard = () => {
     const card =
