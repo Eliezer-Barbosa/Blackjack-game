@@ -296,7 +296,7 @@ const App = () => {
       }
     }
     setPlayerHand(playerHand + card.value);
-    setPlayerCards((cards) => [...cards, card.value]);
+    setPlayerCards((cards) => [...cards, card.cardImage]);
     if (playerHandRef.current === 21) {
       setCash(parseInt(myStorage.getItem('cash')) + deal)
       Swal.fire(`You win with ${playerHandRef.current} points - BLACKJACK!!!`);
@@ -321,7 +321,7 @@ const App = () => {
     const card = getACard();
     // console.log("dealer card: ", card.value);
     setDealerHand(dealerHand + card.value);
-    setDealerCards((cards) => [...cards, card.value]);
+    setDealerCards((cards) => [...cards, card.cardImage]);
   };
 
   return (
