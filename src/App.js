@@ -410,8 +410,8 @@ const App = () => {
             display: "flex",
             justifyContent: "space-evenly",
             visibility: deal === 0 && "hidden",
-            paddingBottom: 5,
           }}
+          pb='5px'
         >
           <Button
             fullWidth
@@ -475,7 +475,7 @@ const App = () => {
           height: "65vh",
         }}
       >
-        <Box style={{ paddingTop: "15px" }}>
+        <Box pt='15px'>
           <Typography variant="h4">Dealer cards</Typography>
           {dealerCards.map((card) => (
             <img
@@ -487,7 +487,7 @@ const App = () => {
             />
           ))}
         </Box>
-        <Box style={{ paddingTop: "15px" }}>
+        <Box pt='15px'>
           <Typography variant="h4">Player cards</Typography>
           {playerCards.map((card) => (
             <img
